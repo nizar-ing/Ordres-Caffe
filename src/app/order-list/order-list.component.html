@@ -1,0 +1,26 @@
+<table class="striped responsive-table">
+  <thead>
+  <tr>
+    <th>Order No.</th>
+    <th>Name</th>
+    <th>Coffee List</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let order of coffeeOrders">
+    <td>{{ order.payload.doc.data().orderNumber }}</td>
+    <td>{{ order.payload.doc.data().customerName }}</td>
+    <td>
+      <span *ngFor="let coffee of order.payload.doc.data().coffeeOrder; let isLast = last">
+       {{ coffee }} <span *ngIf="!isLast"> - </span>
+      </span>
+    </td>
+    <td [hidden]="order.payload.doc.data().completed" (click)="markCompleted(order)">
+      <i class="material-icons">check</i>
+    </td>
+    <td [hidden]="order.payload.doc.data().completed" (click)="deleteOrder(order)">
+      <i class="material-icons">delete_forever</i>
+    </td>
+  </tr>
+  </tbody>
+</table>
